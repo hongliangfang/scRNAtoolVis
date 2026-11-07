@@ -35,7 +35,7 @@
 #' @param bar.width the colorbar legend width, default 4.5.
 #' @param plot.margin the plot margin, default c(1,1,1,1) which relative to c(t,r,b,l).
 #' @param anno whether anno celltype, default FALSE.
-#' @param anno_y_position The celltype annotation y axis position ajustment, default NULL.
+#' @param anno_y_position Vertical coordinate for the top celltype annotation. By default, place it just above the panel; a numeric value overrides this position.
 #' @param aesGroName the markerGene data.frame column name which refers to celltype, default "cluster".
 #' @param segWidth annoSegment width, default 0.8.
 #' @param lwd annoSegment line size, default 3.
@@ -527,6 +527,18 @@ jjDotPlot <- function(
   # ================================
   # add celltype annotation
   if (!is.null(markerGene) && anno == TRUE) {
+    if (is.null(anno_y_position)) {
+      # jjAnno's default relSideDist = 0.1 moves annotations increasingly
+      # far from the panel as the number of clusters grows.
+      # Position the bracket just above the panel instead.
+      y_values <- data.plot.res$id
+      if (is.numeric(y_values)) {
+        y_range <- range(y_values, na.rm = TRUE)
+        anno_y_position <- y_range[2] + 0.05 * diff(y_range) + 0.3
+      } else {
+        anno_y_position <- length(unique(y_values[!is.na(y_values)])) + 0.9
+      }
+    }
     panno <- jjAnno::annoSegment(
       object = pxtree,
       annoPos = "top",

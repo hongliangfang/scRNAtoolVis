@@ -70,7 +70,7 @@
 
 \item{anno}{whether anno celltype, default FALSE.}
 
-\item{anno_y_position}{The celltype annotation y axis position ajustment, default NULL.}
+\item{anno_y_position}{Vertical coordinate for the top celltype annotation. By default, place it just above the panel; a numeric value overrides this position.}
 
 \item{aesGroName}{the markerGene data.frame column name which refers to celltype, default "cluster".}
 
