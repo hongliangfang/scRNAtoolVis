@@ -52,7 +52,7 @@
 
 \item{x.text.hjust}{the x text hjust, default 1}
 
-\item{x.text.vjust}{the x text vjust, default 0.}
+\item{x.text.vjust}{the x text vjust, default NULL (automatically 0 for vertical labels and 1 for other angles).}
 
 \item{ytree}{whether add the y axis dendrogram, default TRUE.}
 
