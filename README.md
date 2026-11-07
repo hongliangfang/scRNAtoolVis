@@ -10,7 +10,7 @@
 
 ```R
 install.packages('devtools')
-devtools::install_github('junjunlab/scRNAtoolVis')
+devtools::install_github('hongliangfang/scRNAtoolVis')
 
 # if not install ggunchull
 devtools::install_github("sajuukLyu/ggunchull", type = "source")
