@@ -26,7 +26,7 @@
 #' @param base_size the theme base size, default 14.
 #' @param x.text.angle the x text angle, default 90.
 #' @param x.text.hjust the x text hjust, default 1
-#' @param x.text.vjust the x text vjust, default 0.
+#' @param x.text.vjust the x text vjust, default NULL (automatically 0 for vertical labels and 1 for other angles).
 #' @param ytree whether add the y axis dendrogram, default TRUE.
 #' @param xtree whether add the x axis dendrogram, default FALSE.
 #' @param tree.pos the dendrogram position to be placed, default NULL.
@@ -133,7 +133,7 @@ jjDotPlot <- function(
     base_size = 14,
     x.text.angle = 90,
     x.text.hjust = 1,
-    x.text.vjust = 0,
+    x.text.vjust = NULL,
     ytree = TRUE,
     xtree = FALSE,
     tree.pos = NULL,
@@ -305,6 +305,13 @@ jjDotPlot <- function(
 
   # ============================================================================
   # plot
+  # Preserve the existing 90-degree label alignment. For oblique labels,
+  # vjust = 0 leaves excessive space between the tick marks and gene names.
+  # Only choose a default when the caller has not supplied one.
+  if (is.null(x.text.vjust)) {
+    x.text.vjust <- if (isTRUE(x.text.angle %% 180 == 90)) 0 else 1
+  }
+
   pmain <- ggplot2::ggplot(
     data.plot.res,
     ggplot2::aes(x = gene, y = id)
